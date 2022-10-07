@@ -1,0 +1,13 @@
+[Unit]
+Description=Nux Upgrade Daemon
+After=network-online.target
+
+[Service]
+Type=dbus
+BusName=com.PlayNux.NuxUpgrade
+ExecStart=/usr/bin/nux-upgrade daemon
+Restart=on-failure
+
+[Install]
+Alias=com.PlayNux.NuxUpgrade.service
+WantedBy=multi-user.target

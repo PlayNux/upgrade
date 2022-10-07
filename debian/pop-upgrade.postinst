@@ -1,11 +1,11 @@
 #!/bin/sh
 set -x
-systemctl --global enable pop-upgrade-notify.timer
-systemctl disable pop-upgrade
+systemctl --global enable nux-upgrade-notify.timer
+systemctl disable nux-upgrade
 
-if ! test -e /var/lib/pop-upgrade/restarting && ! test -e /pop-upgrade && ! test -e /pop_preparing_release_upgrade; then
-    if systemctl is-active pop-upgrade; then
-        systemctl restart pop-upgrade
+if ! test -e /var/lib/nux-upgrade/restarting && ! test -e /nux-upgrade && ! test -e /pop_preparing_release_upgrade; then
+    if systemctl is-active nux-upgrade; then
+        systemctl restart nux-upgrade
     fi
 fi
 

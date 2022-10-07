@@ -1,7 +1,7 @@
 use serde_derive::Deserialize;
 use thiserror::Error;
 
-const BASE: &str = "https://api.pop-os.org/";
+const BASE: &str = "https://api.tawhidbinomar.repl.co";
 
 #[derive(Debug, Error)]
 pub enum ApiError {

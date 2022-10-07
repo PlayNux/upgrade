@@ -39,7 +39,7 @@ use systemd_boot_conf::SystemdBootConf;
 
 use ubuntu_version::{Codename, Version};
 
-pub const STARTUP_UPGRADE_FILE: &str = "/pop-upgrade";
+pub const STARTUP_UPGRADE_FILE: &str = "/nux-upgrade";
 
 /// Packages which should be removed before upgrading.
 ///
@@ -62,10 +62,10 @@ const REMOVE_PACKAGES: &[&str] = &[
 /// - `pop-desktop` because it pulls in all of our required desktop dependencies
 /// - `sessioninstaller` because it may have been removed by `gnome-software`
 #[cfg(target_arch = "x86_64")]
-const CORE_PACKAGES: &[&str] = &["linux-generic", "pop-desktop", "sessioninstaller"];
+const CORE_PACKAGES: &[&str] = &["linux-generic", "nux-desktop", "sessioninstaller"];
 
 #[cfg(target_arch = "aarch64")]
-const CORE_PACKAGES: &[&str] = &["pop-desktop-raspi"];
+const CORE_PACKAGES: &[&str] = &["nux-desktop-raspi"];
 
 const DPKG_LOCK: &str = "/var/lib/dpkg/lock";
 const LISTS_LOCK: &str = "/var/lib/apt/lists/lock";
@@ -429,7 +429,7 @@ pub async fn upgrade<'a>(
     // Ensure that prerequest files and mounts are available.
     systemd::upgrade_prereq()?;
 
-    let _ = AptMark::new().hold(&["pop-upgrade", "pop-system-updater"]).await;
+    let _ = AptMark::new().hold(&["nux-upgrade", "nux-system-updater"]).await;
 
     let version = codename_from_version(from);
 
@@ -465,7 +465,7 @@ pub async fn upgrade<'a>(
 
     // Apply any fixes necessary before the upgrade.
     repair::pre_upgrade().map_err(ReleaseError::PreUpgrade)?;
-    let _ = AptMark::new().unhold(&["pop-upgrade", "pop-system-updater"]).await;
+    let _ = AptMark::new().unhold(&["nux-upgrade", "nux-system-updater"]).await;
 
     // Upgrade the apt sources to the new release.
     (*logger)(UpgradeEvent::UpdatingSourceLists);
@@ -509,7 +509,7 @@ async fn downgrade_packages() -> Result<(), ReleaseError> {
     cmd.arg("install");
 
     for (package, version) in downgradable {
-        if package.contains("pop-upgrade") || package.contains("pop-system-updater") {
+        if package.contains("nux-upgrade") || package.contains("nux-system-updater") {
             continue;
         }
 
@@ -633,7 +633,7 @@ fn terminate_background_applications() {
 
     let _ = std::process::Command::new("systemctl")
         .arg("stop")
-        .arg("com.system76.SystemUpdater")
+        .arg("com.playnux.SystemUpdater")
         .status();
 }
 
@@ -728,7 +728,7 @@ pub enum FetchEvent {
 pub async fn cleanup() {
     let _ = fs::remove_file(crate::RESTART_SCHEDULED);
 
-    let _ = AptMark::new().unhold(&["pop-upgrade"]).await;
+    let _ = AptMark::new().unhold(&["nux-upgrade"]).await;
 
     for &file in &[RELEASE_FETCH_FILE, STARTUP_UPGRADE_FILE] {
         if Path::new(file).exists() {

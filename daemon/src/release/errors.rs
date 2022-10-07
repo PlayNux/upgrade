@@ -45,7 +45,7 @@ pub enum ReleaseError {
     #[error("status for `apt-get install -f` failed")]
     FixBroken(#[source] io::Error),
 
-    #[error("failed to hold the pop-upgrade package")]
+    #[error("failed to hold the nux-upgrade package")]
     HoldPopUpgrade(#[source] io::Error),
 
     #[error("unable to hold apt/dpkg lock files")]
@@ -99,19 +99,19 @@ pub enum ReleaseError {
     #[error("files required for systemd upgrade are missing: {:?}", _0)]
     SystemdUpgradeFilesMissing(Vec<&'static str>),
 
-    #[error("failed to unhold the pop-upgrade package")]
+    #[error("failed to unhold the nux-upgrade package")]
     UnholdPopUpgrade(#[source] io::Error),
 
     #[error("failed to perform apt upgrade of the current release")]
     Upgrade(#[source] io::Error),
 
     #[error(
-        "unable to install core packages: a package may be preventing pop-desktop from being \
+        "unable to install core packages: a package may be preventing nux-desktop from being \
          installed"
     )]
     InstallCore(#[source] io::Error),
 
-    #[error("failed to create /pop-upgrade file")]
+    #[error("failed to create /nux-upgrade file")]
     StartupFileCreation(#[source] io::Error),
 
     #[error("failed to modify systemd-boot configuration: {}", _0)]

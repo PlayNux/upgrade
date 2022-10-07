@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=com.PlayNux.NuxUpgrade
+Exec=/usr/bin/nux-upgrade daemon
+User=root
+SystemdService=nux-upgrade.service

@@ -4,7 +4,7 @@ use anyhow::Context;
 use std::fs;
 use ubuntu_version::{Codename, Version};
 
-pub const PREVIOUS_DEFAULT: &str = "/var/lib/pop-upgrade/previous_default";
+pub const PREVIOUS_DEFAULT: &str = "/var/lib/nux-upgrade/previous_default";
 
 pub struct BootConf(SystemdBootConf);
 
@@ -117,9 +117,9 @@ pub fn upgrade_set(from: &str, to: &str) -> RelResult<()> {
 /// Validate that the pre-required files for performing a system upgrade are in place.
 pub fn upgrade_prereq() -> RelResult<()> {
     const REQUIRED_UPGRADE_FILES: [&str; 3] = [
-        "/usr/lib/pop-upgrade/upgrade.sh",
-        "/usr/lib/systemd/system/pop-upgrade-init.service",
-        "/usr/lib/systemd/system/system-update.target.wants/pop-upgrade-init.service",
+        "/usr/lib/nux-upgrade/upgrade.sh",
+        "/usr/lib/systemd/system/nux-upgrade-init.service",
+        "/usr/lib/systemd/system/system-update.target.wants/nux-upgrade-init.service",
     ];
 
     let invalid = REQUIRED_UPGRADE_FILES

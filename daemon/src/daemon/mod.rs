@@ -80,8 +80,8 @@ use tokio::{
     },
 };
 
-pub const DISMISSED: &str = "/usr/lib/pop-upgrade/dismissed";
-pub const INSTALL_DATE: &str = "/usr/lib/pop-upgrade/install_date";
+pub const DISMISSED: &str = "/usr/lib/nux-upgrade/dismissed";
+pub const INSTALL_DATE: &str = "/usr/lib/nux-upgrade/install_date";
 
 #[derive(Debug)]
 pub enum Event {
@@ -222,7 +222,7 @@ impl Daemon {
                     let _suspend_lock = logind.as_mut().and_then(|logind| {
                         match logind
                             .connect()
-                            .inhibit_suspend("pop-upgrade", "performing upgrade event")
+                            .inhibit_suspend("nux-upgrade", "performing upgrade event")
                         {
                             Ok(lock) => Some(lock),
                             Err(why) => {
@@ -347,7 +347,7 @@ impl Daemon {
 
                             info!("upgrade result: {:?}", result);
 
-                            let _ = AptMark::new().unhold(&["pop-upgrade"]).await;
+                            let _ = AptMark::new().unhold(&["nux-upgrade"]).await;
 
                             info!("setting upgrade state");
                             let _ = fg_tx.send(FgEvent::SetUpgradeState(result, how, from.into(), to.into()));
@@ -750,7 +750,7 @@ impl Daemon {
 
         release::cleanup().await;
 
-        let path = dbus::strings::Path::from_slice("/com/system76/PopUpgrade\0").unwrap();
+        let path = dbus::strings::Path::from_slice("/com/PlayNux/NuxUpgrade\0").unwrap();
         let mut shutdown_triggered = false;
 
         loop {
@@ -767,7 +767,7 @@ impl Daemon {
             }
 
             if daemon.perform_upgrade {
-                let mut packages = vec!["pop-upgrade", "libpop-upgrade-gtk"];
+                let mut packages = vec!["nux-upgrade", "libpop-upgrade-gtk"];
 
                 if let Ok((_, mut policies)) =
                     AptCache::new().policy(&["libpop-upgrade-gtk-dev"]).await
@@ -1101,7 +1101,7 @@ impl Daemon {
 
         if let Ok(true) = upgrade_required().await {
             if tokio::fs::File::create(RESTART_SCHEDULED).await.is_ok() {
-                info!("installing latest version of `pop-upgrade`, which will restart the daemon");
+                info!("installing latest version of `nux-upgrade`, which will restart the daemon");
                 self.perform_upgrade = true;
                 return 1;
             }
@@ -1112,7 +1112,7 @@ impl Daemon {
 }
 
 pub async fn upgrade_required() -> anyhow::Result<bool> {
-    let (_, mut policies) = apt_cmd::AptCache::new().policy(&["pop-upgrade"]).await?;
+    let (_, mut policies) = apt_cmd::AptCache::new().policy(&["nux-upgrade"]).await?;
 
     if let Some(policy) = policies.next().await {
         if policy.installed != policy.candidate {

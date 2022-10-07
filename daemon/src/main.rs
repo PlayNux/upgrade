@@ -23,10 +23,10 @@ mod logging;
 mod notify;
 
 use crate::{cli::Client, logging::setup_logging};
-use pop_upgrade::{daemon::Daemon, sighandler};
+use nux_upgrade::{daemon::Daemon, sighandler};
 
 pub mod error {
-    use pop_upgrade::{
+    use nux_upgrade::{
         client::Error as ClientError, daemon::DaemonError, recovery::RecoveryError,
         release::ReleaseError,
     };
@@ -77,8 +77,8 @@ async fn main() {
 
     let _ = setup_logging(::log::LevelFilter::Debug);
 
-    let clap = App::new("pop-upgrade")
-        .about("Pop!_OS Upgrade Utility")
+    let clap = App::new("nux-upgrade")
+        .about("PlayNux Upgrade Utility")
         .global_setting(AppSettings::ColoredHelp)
         .global_setting(AppSettings::UnifiedHelpMessage)
         .setting(AppSettings::SubcommandRequiredElseHelp)
@@ -112,7 +112,7 @@ async fn main() {
                         .setting(AppSettings::SubcommandRequiredElseHelp)
                         .subcommand(
                             SubCommand::with_name("from-release")
-                                .about("update the recovery partition using a the Pop release API")
+                                .about("update the recovery partition using a the Nux release API")
                                 .arg(
                                     Arg::with_name("VERSION")
                                         .help("release version to fetch. IE: `18.04`"),
@@ -185,7 +185,7 @@ async fn main() {
                 ),
         )
         .subcommand(
-            SubCommand::with_name("status").about("get the status of the pop upgrade daemon"),
+            SubCommand::with_name("status").about("get the status of the nux upgrade daemon"),
         );
 
     if main_(&clap.get_matches()).await.is_err() {
@@ -203,11 +203,11 @@ async fn main_(matches: &ArgMatches) -> anyhow::Result<()> {
             let mut client = Client::new()?;
 
             if std::env::var_os("S76_TEST").is_none() {
-                println!("checking if pop-upgrade requires an update");
+                println!("checking if nux-upgrade requires an update");
                 if client.update_and_restart()? {
                     println!("waiting for daemon to update and restart");
 
-                    let file = std::path::Path::new(pop_upgrade::RESTART_SCHEDULED);
+                    let file = std::path::Path::new(nux_upgrade::RESTART_SCHEDULED);
                     while file.exists() {
                         if crate::sighandler::status().is_some() {
                             std::process::exit(1);
@@ -218,7 +218,7 @@ async fn main_(matches: &ArgMatches) -> anyhow::Result<()> {
 
                     std::thread::sleep(std::time::Duration::from_secs(1));
 
-                    println!("reconnecting to pop-upgrade daemon");
+                    println!("reconnecting to nux-upgrade daemon");
                     client = Client::new()?;
                 }
             }

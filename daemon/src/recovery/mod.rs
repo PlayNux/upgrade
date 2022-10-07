@@ -29,7 +29,7 @@ bitflags! {
     }
 }
 
-const CACHE_PATH: &str = "/var/cache/pop-upgrade/";
+const CACHE_PATH: &str = "/var/cache/nux-upgrade/";
 
 #[repr(u8)]
 #[derive(Clone, Copy, Debug, FromPrimitive, PartialEq)]

@@ -1,5 +1,5 @@
 [package]
-name = "pop-upgrade"
+name = "nux-upgrade"
 version = "1.0.0"
 authors = ["Michael Aaron Murphy <mmstickman@gmail.com>"]
 license = "GPL-3.0"

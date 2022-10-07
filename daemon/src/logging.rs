@@ -33,8 +33,8 @@ pub fn setup_logging(filter: LevelFilter) -> Result<(), InitError> {
         // Exclude logs for crates that we use
         .level(LevelFilter::Off)
         // Include only the logs for relevant crates of interest
-        .level_for("pop_upgrade", filter)
-        .level_for("pop_upgrade_gtk", LevelFilter::Trace)
+        .level_for("nux_upgrade", filter)
+        .level_for("nux_upgrade_gtk", LevelFilter::Trace)
         .level_for("apt_fetcher", filter)
         .level_for("apt_cmd", filter)
         .level_for("async_fetcher", filter)
@@ -59,7 +59,7 @@ mod tests {
     fn strip_src() {
         assert_eq!(
             super::strip_src(
-                "/home/user/Sources/pop/upgrade/target/cargo/git/checkouts/\
+                "/home/user/Sources/nux/upgrade/target/cargo/git/checkouts/\
                  async-fetcher-3eeb08c00d25dece/2cf133c/src/concatenator.rs"
             ),
             "concatenator.rs"

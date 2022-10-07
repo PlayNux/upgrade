@@ -36,7 +36,7 @@ static void activate (GApplication *app, gpointer user_data) {
 
 int main (int argc, char **argv) {
     GtkApplication *app = gtk_application_new (
-        "com.system76.PopUpgradeExample",
+        "com.playnux.NuxUpgradeExample",
         G_APPLICATION_FLAGS_NONE
     );
 

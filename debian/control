@@ -1,4 +1,4 @@
-Source: pop-upgrade
+Source: nux-upgrade
 Section: admin
 Priority: optional
 Maintainer: Michael Aaron Murphy <michael@system76.com>
@@ -15,13 +15,13 @@ Build-Depends:
   libpop-system-updater-gtk-dev,
   rustc (>=1.36)
 Standards-Version: 4.1.1
-Homepage: https://github.com/pop-os/upgrade
+Homepage: https://github.com/PlayNux/upgrade
 
-Package: pop-upgrade
+Package: nux-upgrade
 Architecture: amd64 arm64
 Depends:
-  pop-system-updater,
-  pop-plymouth-theme,
+  nux-system-updater,
+  nux-plymouth-theme,
   rsync,
   ${misc:Depends},
   ${shlibs:Depends}
@@ -31,7 +31,7 @@ Package: libpop-upgrade-gtk
 Architecture: amd64 arm64
 Depends:
   libpop-system-updater-gtk,
-  pop-upgrade (= ${binary:Version}),
+  nux-upgrade (= ${binary:Version}),
   ${shlibs:Depends}
 Description: The Pop upgrade experience as a GTK widget in a dylib
  The Pop upgrade experience as a GTK widget in a dylib

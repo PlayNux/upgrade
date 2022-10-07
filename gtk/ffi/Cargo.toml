@@ -1,5 +1,5 @@
 [package]
-name = "pop-upgrade-gtk-ffi"
+name = "nux-upgrade-gtk-ffi"
 version = "1.0.0"
 authors = ["Michael Aaron Murphy <mmstick@pm.me>"]
 edition = "2018"
@@ -8,7 +8,7 @@ edition = "2018"
 cdylib-link-lines = "0.1.4"
 
 [dependencies]
-pop-upgrade-gtk = { path = "../" }
+nux-upgrade-gtk = { path = "../" }
 glib = "0.15.11"
 gtk-sys = "0.15.3"
 gtk = { version = "0.15.5", features = [ "v3_22" ] }

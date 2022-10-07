@@ -4,10 +4,10 @@ bindir = $(prefix)/bin
 includedir = $(prefix)/include
 libdir = $(prefix)/lib
 
-PACKAGE=pop_upgrade_gtk
+PACKAGE=nux_upgrade_gtk
 LIB=lib$(PACKAGE).so
-BIN=pop-upgrade
-ID=com.system76.PopUpgrade
+BIN=nux-upgrade
+ID=com.PlayNux.NuxUpgrade
 
 TESTING ?= 0
 ifeq ($(TESTING),1)
@@ -30,7 +30,7 @@ BINARY=target/$(TARGET)/$(BIN)
 LIBRARY=target/$(TARGET)/$(LIB)
 PKGCONFIG = target/$(PACKAGE).pc
 HEADER = gtk/ffi/$(PACKAGE).h
-NOTIFY = pop-upgrade-notify
+NOTIFY = nux-upgrade-notify
 NOTIFY_APPID = $(ID).Notify
 STARTUP_DESKTOP = $(NOTIFY_APPID).desktop
 
@@ -71,10 +71,10 @@ install:
 	install -Dm0644 "data/$(STARTUP_DESKTOP)" "$(DESTDIR)/etc/xdg/autostart/$(STARTUP_DESKTOP)"
 
 $(BINARY): extract-vendor
-	cargo build $(ARGS) -p pop-upgrade
+	cargo build $(ARGS) -p nux-upgrade
 
 $(LIBRARY): extract-vendor
-	cargo build $(ARGS) -p pop-upgrade-gtk-ffi
+	cargo build $(ARGS) -p nux-upgrade-gtk-ffi
 
 $(PKGCONFIG):
 	echo "libdir=$(libdir)" > "$@.partial"

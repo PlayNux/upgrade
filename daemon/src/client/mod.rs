@@ -347,7 +347,7 @@ impl Client {
                     }
 
                     log_cb(status_func(self)?);
-                    error!("breaking connection to pop-upgrade daemon due to inactivity");
+                    error!("breaking connection to nux-upgrade daemon due to inactivity");
                     break;
                 }
 

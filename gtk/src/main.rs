@@ -5,7 +5,7 @@ use gio::{prelude::*, ApplicationFlags};
 use gtk::{prelude::*, Application};
 use pop_upgrade_gtk::UpgradeWidget;
 
-pub const APP_ID: &str = "com.system76.UpgradeManager";
+pub const APP_ID: &str = "com.playnux.UpgradeManager";
 
 fn main() {
     better_panic::install();
@@ -60,7 +60,7 @@ fn main() {
 fn argument_parsing() {
     use clap::{App, Arg};
 
-    let matches = App::new("com.system76.FirmwareManager")
+    let matches = App::new("com.playnux.FirmwareManager")
         .arg(
             Arg::with_name("verbose")
                 .short('v')

@@ -82,7 +82,7 @@ pub async fn current(version: Option<&str>) -> anyhow::Result<(Box<str>, u16)> {
         return Ok((version.into(), build));
     }
 
-    let current = Version::detect().context("cannot detect current version of Pop")?;
+    let current = Version::detect().context("cannot detect current version of Nux")?;
     let release_str = release_str(current.major, current.minor);
 
     let build = Release::build_exists(release_str, "intel")
@@ -109,7 +109,7 @@ pub fn release_str(major: u8, minor: u8) -> &'static str {
         (21, 10) => IMPISH,
         (22, 4) => JAMMY,
         (22, 10) => UNKNOWN,
-        _ => panic!("this version of pop-upgrade is not supported on this release"),
+        _ => panic!("this version of nux-upgrade is not supported on this release"),
     }
 }
 
@@ -142,6 +142,6 @@ async fn next_<Check: Fn(String) -> Status, Status: Future<Output = BuildStatus>
         (21, 4) => available(false, HIRSUTE, IMPISH).await,
         (21, 10) => available(false, IMPISH, JAMMY).await,
         (22, 4) => blocked(true, JAMMY, UNKNOWN).await,
-        _ => panic!("this version of pop-upgrade is not supported on this release"),
+        _ => panic!("this version of nux-upgrade is not supported on this release"),
     }
 }

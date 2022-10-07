@@ -1,16 +1,16 @@
-pop-upgrade (1.0.0) hirsute; urgency=medium
+nux-upgrade (1.0.0) hirsute; urgency=medium
 
   * New release
 
  -- Michael Aaron Murphy <mmstick@pm.me>  Tue, 29 Jun 2021 13:48:41 -0600
 
-pop-upgrade (0.1.1) groovy; urgency=medium
+nux-upgrade (0.1.1) groovy; urgency=medium
 
   * Include SONAME in library
 
  -- Ian Douglas Scott <idscott@system76.com>  Tue, 01 Dec 2020 09:03:15 -0800
 
-pop-upgrade (0.1.0) cosmic; urgency=medium
+nux-upgrade (0.1.0) cosmic; urgency=medium
 
   * Initial release.
 

@@ -2172,7 +2172,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pop-upgrade"
+name = "nux-upgrade"
 version = "1.0.0"
 dependencies = [
  "anyhow",
@@ -2239,7 +2239,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pop-upgrade-gtk"
+name = "nux-upgrade-gtk"
 version = "1.0.0"
 dependencies = [
  "apt-cmd",
@@ -2266,7 +2266,7 @@ dependencies = [
  "os-release",
  "pango",
  "pkg-config",
- "pop-upgrade",
+ "nux-upgrade",
  "rust-embed",
  "shrinkwraprs",
  "thiserror",
@@ -2277,7 +2277,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pop-upgrade-gtk-ffi"
+name = "nux-upgrade-gtk-ffi"
 version = "1.0.0"
 dependencies = [
  "cdylib-link-lines",
@@ -2286,7 +2286,7 @@ dependencies = [
  "gtk-sys",
  "i18n-embed",
  "i18n-embed-fl",
- "pop-upgrade-gtk",
+ "nux-upgrade-gtk",
 ]
 
 [[package]]

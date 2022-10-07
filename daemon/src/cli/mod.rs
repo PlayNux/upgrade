@@ -8,7 +8,7 @@ use apt_cmd::AptUpgradeEvent;
 use chrono::{TimeZone, Utc};
 use clap::ArgMatches;
 use num_traits::FromPrimitive;
-use pop_upgrade::{
+use nux_upgrade::{
     client,
     daemon::*,
     misc,
@@ -92,7 +92,7 @@ impl Client {
     pub fn release(&self, matches: &ArgMatches) -> anyhow::Result<()> {
         match matches.subcommand() {
             Some(("dismiss", _)) => {
-                let devel = pop_upgrade::development_releases_enabled();
+                let devel = nux_upgrade::development_releases_enabled();
                 let (_, _, _, is_lts) = self.release_check(devel)?;
                 if is_lts {
                     self.dismiss_notification(DismissEvent::ByUser)?;
@@ -139,7 +139,7 @@ impl Client {
             Some(("upgrade", matches)) => {
                 let (method, matches) = (UpgradeMethod::Offline, matches);
                 let forcing =
-                    matches.is_present("force-next") || pop_upgrade::development_releases_enabled();
+                    matches.is_present("force-next") || nux_upgrade::development_releases_enabled();
                 let (current, next, available, _is_lts) = self.release_check(forcing)?;
 
                 if atty::is(atty::Stream::Stdout) {
@@ -527,7 +527,7 @@ impl Client {
 
 /// If the next release's timestamp is less than the install time.
 fn installed_after_release(next: &str) -> bool {
-    match pop_upgrade::install::time() {
+    match nux_upgrade::install::time() {
         Ok(install_time) => {
             if let Some(pos) = next.find('.') {
                 let (major, mut minor) = next.split_at(pos);
@@ -556,10 +556,10 @@ fn notification_message(current: &str, next: &str) -> (String, String) {
         Ok(eol) => match eol.status() {
             EolStatus::Exceeded => {
                 return (
-                    fomat!("Support for Pop!_OS " (current) " has ended"),
+                    fomat!("Support for PlayNux " (current) " has ended"),
                     fomat!(
-                        "Security and application updates are no longer provided for Pop!_OS "
-                        (current) ". Upgrade to Pop!_OS " (next) " to keep your computer secure."
+                        "Security and application updates are no longer provided for PlayNux "
+                        (current) ". Upgrade to PlayNux " (next) " to keep your computer secure."
                     ),
                 );
             }
@@ -567,12 +567,12 @@ fn notification_message(current: &str, next: &str) -> (String, String) {
                 let (y, m, d) = eol.ymd;
                 return (
                     fomat!(
-                        "Support for Pop!_OS " (current) " ends "
+                        "Support for PlayNux " (current) " ends "
                         (Utc.ymd(y as i32, m, d).format("%B %-d, %Y"))
                     ),
                     fomat!(
                         "This computer will soon stop receiving updates"
-                        ". Upgrade to Pop!_OS " (next) " to keep your computer secure."
+                        ". Upgrade to PlayNux " (next) " to keep your computer secure."
                     ),
                 );
             }
@@ -581,7 +581,7 @@ fn notification_message(current: &str, next: &str) -> (String, String) {
         Err(why) => error!("failed to fetch EOL date: {}", why),
     }
 
-    ("Upgrade Available".into(), fomat!("Pop!_OS " (next) " is available to download"))
+    ("Upgrade Available".into(), fomat!("PlayNux " (next) " is available to download"))
 }
 
 fn write_apt_event(event: AptUpgradeEvent) {

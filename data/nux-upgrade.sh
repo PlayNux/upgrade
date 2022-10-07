@@ -4,7 +4,7 @@ export LANG=C
 export DEBIAN_FRONTEND="noninteractive"
 
 # Prevent apt sources from being reverted once this script launches
-rm -rf /pop-upgrade /pop_preparing_release_upgrade
+rm -rf /nux-upgrade /pop_preparing_release_upgrade
 
 message () {
     plymouth message --text="system-updates"
@@ -234,7 +234,7 @@ attempt_upgrade () {
     message -i "Installing Updates (0%)"
     touch "$1"
 
-    systemctl mask acpid pop-upgrade
+    systemctl mask acpid nux-upgrade
 
     if (upgrade || attempt_repair); then
         rm -rf  /system-update "$1"
@@ -255,13 +255,13 @@ attempt_upgrade () {
         sleep 6
         sync
 
-        systemctl unmask acpid pop-upgrade
+        systemctl unmask acpid nux-upgrade
         systemctl reboot
     else
         message -f "Upgrade failed. Restarting the system to try again..."
         sleep 6
         sync
-        systemctl unmask acpid pop-upgrade
+        systemctl unmask acpid nux-upgrade
         systemctl rescue
     fi
 }

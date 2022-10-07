@@ -6,8 +6,8 @@ This document provides a guideline for testing and verifying the expected behavi
 
 When testing, it is ideal to have a terminal actively open watching logs from the upgrade daemon. This may be done through either of:
 
-- Launching the daemon in a terminal: `sudo systemctl stop pop-upgrade; sudo pop-upgrade daemon`
-- Watching the logs from journald: `journalctl -f -u pop-upgrade`
+- Launching the daemon in a terminal: `sudo systemctl stop nux-upgrade; sudo nux-upgrade daemon`
+- Watching the logs from journald: `journalctl -f -u nux-upgrade`
 
 Much information is also presented in the CLI frontend in a more user-friendly manner, as the daemon communicates events and errors through DBus signals. Ideally, everything that can help diagnose an upgrade error should be logged, so consider it an issue if an error cannot be resolved with the information currently logged.
 
@@ -31,17 +31,17 @@ All frontends interact with the daemon, and therefore testing a frontend will al
 
 Features which can be tested from the command line interface. Each command gives detailed output which is not seen in the GTK frontend. When testing, report any wordings or colors that could be improved to give the user a better experience when using the command line.
 
-- [ ] `pop-upgrade recovery default-boot` boots into the recovery partition on the next boot.
-- [ ] `pop-upgrade recovery upgrade` upgrades the recovery partition.
-- [ ] `pop-upgrade release check` reports the current, next, and release availability.
-- [ ] `pop-upgrade release refresh` boots into the recovery partition in refresh mode.
-- [ ] `pop-upgrade release repair` fixes a number of common system issues that may prevent an upgrade.
-- [ ] `pop-upgrade release update` is equivalent to `apt update && apt full-upgrade`, but much faster.
-- [ ] `pop-upgrade release upgrade` updates the current release, and prepares for a release upgrade.
-    - [ ] `pop-upgrade release upgrade recovery` performs the above in the recovery partition.
-    - [ ] `pop-upgrade release upgrade systemd` uses systemd's `offline-update` service for the upgrade.
-    - [ ] `pop-upgrade release upgrade -f` forces an upgrade, even if the next release is a development branch.
-- [ ] `pop-upgrade status` returns a string describing the status of the daemon (ie: `inactive`).
+- [ ] `nux-upgrade recovery default-boot` boots into the recovery partition on the next boot.
+- [ ] `nux-upgrade recovery upgrade` upgrades the recovery partition.
+- [ ] `nux-upgrade release check` reports the current, next, and release availability.
+- [ ] `nux-upgrade release refresh` boots into the recovery partition in refresh mode.
+- [ ] `nux-upgrade release repair` fixes a number of common system issues that may prevent an upgrade.
+- [ ] `nux-upgrade release update` is equivalent to `apt update && apt full-upgrade`, but much faster.
+- [ ] `nux-upgrade release upgrade` updates the current release, and prepares for a release upgrade.
+    - [ ] `nux-upgrade release upgrade recovery` performs the above in the recovery partition.
+    - [ ] `nux-upgrade release upgrade systemd` uses systemd's `offline-update` service for the upgrade.
+    - [ ] `nux-upgrade release upgrade -f` forces an upgrade, even if the next release is a development branch.
+- [ ] `nux-upgrade status` returns a string describing the status of the daemon (ie: `inactive`).
 - [ ] Incompatible repositories will display a prompt to request to keep or disable them.
 - [ ] Events should be parsed and displayed in the terminal without errors
 
@@ -109,7 +109,7 @@ When the recovery partition does not exist, systemd's `offline-updates` service 
     - [ ] Upgrades with our CUDA packages.
 - [ ] Networking tests:
     - [ ] Simulate a flaky network connection while downloading the update to test what happens with unreliable connectivity and failed downloads.
-    - [ ] Test running `pop-upgrade release upgrade systemd` while not connected to internet, see how it fails.
+    - [ ] Test running `nux-upgrade release upgrade systemd` while not connected to internet, see how it fails.
 - [ ] Release upgrades should always upgrade to the latest-available release.
 - [ ] Verify that the recovery partition is accessible after the upgrade.
 - [ ] Test upgrades on systems that have fully up-to-date packages, and ones that have updates available.

@@ -11,7 +11,7 @@ pub fn http_client() -> Result<isahc::HttpClient, isahc::Error> {
         .build()
 }
 
-// Default options used by all apt-get invocations in pop-upgrade.
+// Default options used by all apt-get invocations in nux-upgrade.
 pub fn apt_get() -> apt_cmd::AptGet {
     apt_cmd::AptGet::new()
         .noninteractive()
